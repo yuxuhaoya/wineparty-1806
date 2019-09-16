@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buba.wineparty1806.dao.AreaDao">
+	<select id="findAll" parameterType="Integer" resultType="com.buba.wineparty1806.pojo.Area">
+		select * from tb_area
+	</select>
+
+	<insert id="addshandong" parameterType="com.buba.wineparty1806.pojo.Shandong">
+		insert into tb_shandong (`name`,num_actual,start_time,end_time,area_id,stype,user_id)
+		values
+		(#{name},#{numActual},#{startTime},#{endTime},#{areaId},#{stype},#{userId})
+	</insert>
+
+	<select id="findshandong" resultType="com.buba.wineparty1806.pojo.Shandong">
+		  select *from tb_shandong
+	</select>
+
+	<select id="findsd" resultType="com.buba.wineparty1806.pojo.Shandong">
+		select * from tb_shandong where id=#{id}
+	</select>
+
+	<update id="updshandong" parameterType="com.buba.wineparty1806.pojo.Shandong">
+		update tb_shandong set new_client=#{newClient}
+		,old_client=#{oldClient},yx_client=#{yxClient},money=#{money},createtime=#{createtime},
+		audit=#{audit}
+		where id=#{id}
+	</update>
+
+	<insert id="updCard" parameterType="com.buba.wineparty1806.pojo.Tp">
+		insert into tb_tp (item_id,`name`,ptime)
+		values(#{itemId},#{name},now())
+	</insert>
+
+	<update id="updatearea" parameterType="com.buba.wineparty1806.pojo.Area">
+		update tb_area set `name`=#{name} where id=#{id}
+	</update>
+
+	<delete id="delete" parameterType="Integer">
+		delete from  tb_area
+		<if test="id!=null and id!=''">
+			where id in
+		</if>
+		<foreach collection="id" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+	<select id="findshandongshi" resultType="com.buba.wineparty1806.pojo.Shandong">
+		select * from tb_shandong where stype='shi'
+	</select>
+
+	<select id="daochu" resultType="com.buba.wineparty1806.pojo.Shandong">
+		select * from tb_shandong
+	</select>
+</mapper>
